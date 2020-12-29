@@ -1,11 +1,15 @@
 # COVID-19-Pandemic-Connectedness-Spatial-Temporal-database
 A spatial-temporal database for analyzing cross-country pandemic connectedness in COVID-19
 
+# Backgrounds
+
 Communicable diseases, such as coronavirus disease 2019, pose a major threat to public health across the globe. To effectively curb the spread of communicable diseases, timely prediction of pandemic risk is essential. The conventional method of prediction by looking into confirmed case counts alone provides limited information about pandemic trends. Because air travel is a common route of communicable disease dissemination and network analysis is a powerful way to estimate pandemic risk, a spatial-temporal database allowing us to analyze cross-country pandemic connectedness is important. 
 
 This database can construct useful travel data records for network statistics other than common descriptive statistics. We can display analytical results by time series plots and spatial-temporal maps to illustrate or visualize pandemic connectedness. The flexible design of the database gives users access to network connectedness at different periods, places, and spatial levels by various network statistics calculation methods according to their needs. The database can facilitate early recognition of the pandemic risk of current communicable diseases and newly emerged communicable diseases in the future.
 
 --------------------------------------------------------------
+
+# Data Records
 
 The data records consist of two major parts: aggregated raw input and calculated/ computed records.
 
@@ -48,6 +52,8 @@ The data records (details) are structured into three comma-separated value (CSV)
 	* e.	Rt is the reciprocity (Rt) at time t
 
 --------------------------------------------------------------
+
+# R Program
 
 All data records were generated using code developed in R version 3.6.3.
 
