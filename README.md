@@ -1,6 +1,7 @@
 # COVID-19-Pandemic-Connectedness-Spatial-Temporal-database
-A spatial-temporal database for analyzing cross-country pandemic connectedness in COVID-19
 [![DOI](https://zenodo.org/badge/325214980.svg)](https://zenodo.org/badge/latestdoi/325214980)
+
+A spatial-temporal database for analyzing cross-country pandemic connectedness in COVID-19
 
 # Backgrounds
 
