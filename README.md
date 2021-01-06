@@ -2,6 +2,9 @@
 [![DOI](https://zenodo.org/badge/325214980.svg)](https://zenodo.org/badge/latestdoi/325214980)
 
 This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
+https://creativecommons.org/licenses/by-nc/4.0/
+
+--------------------------------------------------------------
 
 A spatial-temporal database for analyzing cross-country pandemic connectedness in COVID-19
 
