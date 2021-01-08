@@ -1,9 +1,9 @@
 # COVID-19-Pandemic-Connectedness-Spatial-Temporal-database
 [![DOI](https://zenodo.org/badge/325214980.svg)](https://zenodo.org/badge/latestdoi/325214980)
 
-This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
+This work is licensed under CC0 1.0 Universal (CC0 1.0).
 
-https://creativecommons.org/licenses/by-nc/4.0/
+https://creativecommons.org/publicdomain/zero/1.0/
 
 --------------------------------------------------------------
 
