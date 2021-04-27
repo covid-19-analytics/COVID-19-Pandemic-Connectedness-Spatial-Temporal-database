@@ -27,8 +27,8 @@ library(here)
 proj_name <- ""
 
 # Do you need to download the latest flight data? ----------
-# flag_download <- TRUE
-flag_download <- FALSE
+flag_download <- TRUE
+# flag_download <- FALSE
 
 "%ni%" = Negate("%in%")
 
