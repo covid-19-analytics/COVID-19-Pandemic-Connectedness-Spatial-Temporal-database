@@ -1,7 +1,7 @@
 
 # NOTE: -------------------------------------------------------------------------------
 # *************************************************************************************
-# [_01_retrieve_daily_flight.R]: Retrieve daily flights data (airport-airport) 
+# [_01_retrieve_daily_flight.R]: Retrieve daily flights data (airport-airport) [ver. 2]
 # *************************************************************************************
 
 # *** Reminder: Make sure ran the program [_00_retrieve_data_meta.R] ***
@@ -27,8 +27,8 @@ library(here)
 proj_name <- ""
 
 # Do you need to download the latest flight data? ----------
-flag_download <- TRUE
-# flag_download <- FALSE
+# flag_download <- TRUE
+flag_download <- FALSE
 
 "%ni%" = Negate("%in%")
 
@@ -113,7 +113,12 @@ ICAO_airport_meta <- read_csv(here::here(proj_name, "raw_data", "ICAO_airport_me
 # Download the daily flight data by list of airport codes -------------
 
 if (flag_download==TRUE) {
-  
+
+  tmp_path <- here::here(proj_name, "raw_data", "flights")
+  if (!dir.exists(tmp_path)) {
+    dir.create(tmp_path)
+  }
+    
   selected_airports <- ICAO_airport_meta$airportCode
   tmp_n <- length(selected_airports)
   v_i <- seq(tmp_n)
@@ -202,13 +207,49 @@ df_selected_flight <- do.call("rbind", l_flight)
 # =====================================================================
 # Data cleansing and Aggregation --------------------------------------
 
+
+# -------------------------------------------------
+# -------------------------------------------------
+
 colnames(df_selected_flight) <- c("airportList", "date", "orig_airportCode")
+df_selected_flight <- as_tibble(df_selected_flight)
 
-df_selected_flight <- as_tibble(df_selected_flight) %>% tidyr::unnest(
-  .id= c("date", "orig_airportCode"),
-  cols = c(airportList, date, orig_airportCode))
+# df_selected_flight$date %>% sapply(., function(x) { length(x) }) %>% table
+# df_selected_flight$orig_airportCode %>% sapply(., function(x) { length(x) }) %>% table
+# df_selected_flight$airportList %>% sapply(., function(x) { length(x) }) %>% table
 
-df_selected_flightX <- df_selected_flight %>% 
+# Flattern the fake vector (length= 1) ----------
+df_selected_flight$date <- sapply(df_selected_flight$date, function(x) { unlist(x) })
+df_selected_flight$orig_airportCode <- sapply(df_selected_flight$orig_airportCode, function(x) { unlist(x) })
+
+# airportList: list(airport, count, countryName) ----------
+
+# Beware this line ******
+#   tidyr::unnest() OR tidyr::unnest_legacy()
+#   Due to package "Legacy versions of nest() and unnest()"
+#   Some previous code logic might not work
+# tidyr 1.0.0 introduced a new syntax for nest() and unnest() that's designed to be more similar to other functions. 
+#   For details: https://tidyr.tidyverse.org/reference/nest.html
+# ***********************
+
+# Approach 1 and 2 produce the similar results, 
+#   except the columns will not be in the same order, without affecting the records ----------
+
+# Approach 1: tidyr::unnest_legacy() ----------
+# df_selected_flightX <- df_selected_flight %>% tidyr::unnest_legacy()   # Approach 1
+
+# Approach 2: tidyr::unnest() ----------
+df_selected_flightX <- df_selected_flight %>% tidyr::unnest("airportList") # Approach 2
+
+# For both approach 1 or 2 ----------
+df_selected_flightX <- df_selected_flightX %>%
+  dplyr::select(date, orig_airportCode, airport, count, countryName)
+  
+
+# -------------------------------------------------
+# -------------------------------------------------
+
+df_selected_flightX <- df_selected_flightX %>% 
   dplyr::mutate(date= ymd(date)) %>%
   dplyr::rename(
     dest_airportCode= airport,
