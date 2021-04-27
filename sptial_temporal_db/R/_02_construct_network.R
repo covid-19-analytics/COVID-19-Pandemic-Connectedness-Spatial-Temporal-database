@@ -1,7 +1,7 @@
 
 # NOTE: -------------------------------------------------------------------------------
 # *************************************************************************************
-# [_02_construct_network.R]: Construct dynamic travel network (country-country)
+# [_02_construct_network.R]: Construct dynamic travel network (country-country) [ver. 2]
 # *************************************************************************************
 
 # *** Reminder: Make sure ran the program [00] and [01] ***
@@ -28,7 +28,10 @@ proj_name <- ""
 
 `%ni%` <- Negate(`%in%`)
 
-target_date <- "2020-12-03"
+# target_date <- "2020-12-03"
+target_date <- today()
+
+target_yr <- c(2020:(year(target_date)))
 
 # ==============================================================
 # Note/ Reminder -----------------------------------------------
@@ -47,7 +50,7 @@ df_flight <- read_csv(
 
 tmp_flightX <- df_flight %>%
   dplyr::select(date, orig_countryCode, dest_countryCode) %>%
-  dplyr::filter(year(date)==2020)
+  dplyr::filter(year(date) %in% target_yr)
 
 v_date <- tmp_flightX$date %>% unique()
 
